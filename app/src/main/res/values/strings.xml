@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KBC Premium</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Appointments</string>
+    <string name="title_notifications">Me</string>
+    <string name="address_info">!! Please Specify The Address Very Carefully As We Don\'t Use Any
+    Third Party Service To Get Your Location !!</string>
+</resources>

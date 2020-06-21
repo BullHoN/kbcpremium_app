@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "329405139626",
+    "firebase_url": "https://kbcpremium-64888.firebaseio.com",
+    "project_id": "kbcpremium-64888",
+    "storage_bucket": "kbcpremium-64888.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329405139626:android:3ea866f2af1c9e673fded3",
+        "android_client_info": {
+          "package_name": "com.avit.kbcpremium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329405139626-gc4dshs4k1jinsdadljjtoef80rrgle4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avit.kbcpremium",
+            "certificate_hash": "2c22618b5bf008b3c81f185c08c48c63707f2950"
+          }
+        },
+        {
+          "client_id": "329405139626-8dj03a3ae4fqhn23ake75mffaciq8c9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD8CYCAjqfcgSHiGG6QlL_e7F6_zYOAw4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329405139626-8dj03a3ae4fqhn23ake75mffaciq8c9a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black"
+    android:padding="24dp"
+    android:layout_height="match_parent"
+    tools:context=".AddressActivity">
+
+    <TextView
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:text="Enter Your Details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:text="Note: You can change them anytime after registration"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="32dp"
+        style="@style/Heading"
+        android:text="Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your Name"
+        android:inputType="textPersonName"
+        android:background="@drawable/shape_edit_text"
+        android:padding="12.5dp" />
+
+    <TextView
+        android:layout_marginTop="24dp"
+        style="@style/Heading"
+        android:text="Raw Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/rawaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your Address"
+        android:lines="2"
+        android:ellipsize="end"
+        android:inputType="textPostalAddress"
+        android:background="@drawable/shape_edit_text"
+        android:padding="12.5dp" />
+
+    <TextView
+        android:fontFamily="@font/roboto_medium"
+        android:layout_marginTop="5dp"
+        android:text="@string/address_info"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="24dp"
+        style="@style/Heading"
+        android:text="Nearby Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:id="@+id/nearbyaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Your Nearby address"
+        android:lines="2"
+        android:ellipsize="end"
+        android:inputType="textPostalAddress"
+        android:background="@drawable/shape_edit_text"
+        android:padding="12.5dp" />
+
+    <Button
+        android:id="@+id/register"
+        android:background="@drawable/shape_signup_button"
+        android:text="Register"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

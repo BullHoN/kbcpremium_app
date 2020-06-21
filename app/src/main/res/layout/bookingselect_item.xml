@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:weightSum="5">
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:buttonTint="@color/golden"
+        android:checked="false"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Hair cut Service 1"
+        android:textColor="@color/golden"
+        android:textSize="16sp"
+        android:translationX="-5dp" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="2"
+        android:backgroundTint="@color/golden" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="end"
+        android:text="$100000"
+        android:textColor="@color/golden"
+        android:textSize="18sp" />
+
+</LinearLayout>

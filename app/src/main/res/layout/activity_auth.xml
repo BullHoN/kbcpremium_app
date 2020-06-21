@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/auth_back"
+    tools:context=".AuthActivity">
+
+    <ImageView
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="350dp"
+        android:src="@drawable/logo"
+        android:layout_height="200dp"/>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/categoryHeading"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:text="Welcome,"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/categoryHeading"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:text="To"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/categoryHeading"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="32sp"
+            android:gravity="center"
+            android:text="Kamini Bueaty Care"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:padding="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Enter Your Phone No."
+            android:textColor="@color/categoryHeading"
+            android:textSize="24sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_login_button"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
+                android:text="+91"
+                android:textColor="@color/categoryHeading"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/phoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_edit_text"
+                android:hint="Phone No."
+                android:inputType="number"
+                android:padding="12.5dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/verify"
+            android:textStyle="bold"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/categoryHeading"
+            android:background="@drawable/shape_login_button"
+            android:text="Verify"
+            android:textAllCaps="false"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

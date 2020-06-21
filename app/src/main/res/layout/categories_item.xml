@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:weightSum="3"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/brandName"
+            android:layout_weight="2"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@android:color/white"
+            android:text="Loreal Professional Products"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/openProduct"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:text="View All"
+            android:textColor="@color/golden"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_marginTop="14dp"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/brand_items"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

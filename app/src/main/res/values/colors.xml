@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FDCE56</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="golden">#FBDC8C</color>
+    <color name="colorAccent">#A7164F</color>
+    <color name="pricePink">#76002E</color>
+    <color name="categoryHeading">#FDCE56</color>
+    <color name="white">#ffffff</color>
+    <color name="text_color">#5B5B5B</color>
+    <color name="trans">#00000000</color>
+</resources>
+
