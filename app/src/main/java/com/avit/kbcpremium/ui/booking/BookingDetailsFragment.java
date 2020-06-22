@@ -61,6 +61,7 @@ public class BookingDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                bundle.putString("booking_cat","Hair Care");
                 bundle.putParcelableArrayList("bookingItems",selectedItems);
 
                 Fragment bookSeatFragment = new BookSeatFragment();

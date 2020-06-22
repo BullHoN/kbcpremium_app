@@ -6,6 +6,8 @@ import com.avit.kbcpremium.auth.RegisterPostData;
 import com.avit.kbcpremium.notification.NotificationPostData;
 import com.avit.kbcpremium.notification.NotificationResponseData;
 import com.avit.kbcpremium.ui.booking.BookingItems;
+import com.avit.kbcpremium.ui.bookseat.BookingNotificationPostData;
+import com.avit.kbcpremium.ui.bookseat.BookingNotificationResponseData;
 import com.avit.kbcpremium.ui.cart.AvailabilityResponse;
 import com.avit.kbcpremium.ui.cart.CartItem;
 import com.avit.kbcpremium.ui.products.BrandItem;
@@ -13,6 +15,7 @@ import com.avit.kbcpremium.ui.products.ProductItem;
 import com.avit.kbcpremium.ui.products.SubProducts;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,6 +50,10 @@ public interface NetworkApi {
 
     @GET("bookingItem/{id}")
     Call<BookingItems> getBookingItemsOf(@Path(value = "id") String bookingCategory);
+
+    @POST("/bookseat")
+    Call<BookingNotificationResponseData> sendBookingNotifcation(@Body BookingNotificationPostData bookingNotificationPostData);
+
 
 
 }

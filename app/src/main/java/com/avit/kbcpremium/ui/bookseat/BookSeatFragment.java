@@ -1,5 +1,7 @@
 package com.avit.kbcpremium.ui.bookseat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,12 +10,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.avit.kbcpremium.NetworkApi;
 import com.avit.kbcpremium.R;
+import com.avit.kbcpremium.RetrofitClient;
+import com.avit.kbcpremium.SharedPrefNames;
 import com.avit.kbcpremium.ui.booking.SelectedItem;
 
 import java.text.SimpleDateFormat;
@@ -21,17 +27,25 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class BookSeatFragment  extends Fragment {
 
     private ArrayList<SelectedItem> selectedItems;
     private String TAG = "BookSeat";
     private ArrayList<Integer> timeIds;
-    private String selectedDate,selectedTime,thh,tzone,tydate;
+    private String selectedDate,selectedTime,thh,tzone,tydate,bookingCat;
     private View prevView,fView;
     private LinearLayout datesView;
     private ViewGroup viewGroup;
-    private TextView dateView;
+    private TextView dateView,totalView;
     private Button prevButton;
+    private LinearLayout billItemsView;
+    private SharedPreferences sharedPreferences;
+    private int total;
 
     @Nullable
     @Override
@@ -40,11 +54,16 @@ public class BookSeatFragment  extends Fragment {
         fView = root;
         viewGroup = container;
 
+        sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
         timeIds = new ArrayList<>();
         populateTimeIdsList();
 
         datesView = root.findViewById(R.id.dates);
         selectedItems = getArguments().getParcelableArrayList("bookingItems");
+        bookingCat = getArguments().getString("booking_cat");
+        billItemsView = root.findViewById(R.id.bill_items);
+        totalView = root.findViewById(R.id.total);
+        setUpBillItems();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E,dd MMM yyyy,hh:mm:ss,a,MM");
         String currentDateandTime = simpleDateFormat.format(new Date());
@@ -66,9 +85,96 @@ public class BookSeatFragment  extends Fragment {
         tzone = arr[3];
         setUpTime();
 
-        Log.i(TAG,currentDateandTime);
+        root.findViewById(R.id.booking_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedTime == null){
+                    Toast.makeText(getContext(),"Please Select Booking Time",Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                sendNotification();
+            }
+        });
 
         return root;
+    }
+
+    private void sendNotification(){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        String name = sharedPreferences.getString(SharedPrefNames.USER_NAME,"");
+        String address = sharedPreferences.getString(SharedPrefNames.ADDRESS,"");
+        String nearBy = sharedPreferences.getString(SharedPrefNames.NEAR_ADDRESS,"");
+        String phoneNo = sharedPreferences.getString(SharedPrefNames.PH_NUMBER,"");
+        String fcm_id = sharedPreferences.getString(SharedPrefNames.SOCKET_ID,"");
+
+        BookingNotificationPostData data = new BookingNotificationPostData(name,phoneNo,fcm_id
+                ,total,selectedItems,address,nearBy,generateOrderId(18),bookingCat,selectedDate,selectedTime);
+
+        Call<BookingNotificationResponseData> call = networkApi.sendBookingNotifcation(data);
+
+        call.enqueue(new Callback<BookingNotificationResponseData>() {
+            @Override
+            public void onResponse(Call<BookingNotificationResponseData> call, Response<BookingNotificationResponseData> response) {
+                BookingNotificationResponseData responseData = response.body();
+
+                if(responseData.isStatus()){
+
+                }else {
+                    Toast.makeText(getContext(),"Sorry But Seat is Unavaible so change Time",Toast.LENGTH_LONG)
+                            .show();
+                }
+                
+            }
+
+            @Override
+            public void onFailure(Call<BookingNotificationResponseData> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private String generateOrderId(int n){
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
+
+    private void setUpBillItems(){
+        total = 0;
+        for(SelectedItem curr : selectedItems) {
+            total += Integer.parseInt(curr.getPrice());
+            View view = getLayoutInflater().inflate(R.layout.appoint_item, viewGroup, false);
+
+            TextView nameView = view.findViewById(R.id.name);
+            nameView.setText(curr.getName());
+
+            TextView priceView = view.findViewById(R.id.price);
+            priceView.setText("₹" + curr.getPrice());
+
+            billItemsView.addView(view);
+        }
+
+        totalView.setText("₹" + total);
+
     }
 
     private void setUpTime(){
@@ -104,10 +210,12 @@ public class BookSeatFragment  extends Fragment {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         button.setBackgroundColor(getResources().getColor(R.color.categoryHeading));
                         if(prevButton != null){
                             prevButton.setBackgroundColor(getResources().getColor(R.color.buttonActive));
                         }
+
 
                         int temp = Integer.parseInt(button.getText().toString().split(":")[0]);
 
