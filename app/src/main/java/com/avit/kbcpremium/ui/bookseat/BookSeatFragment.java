@@ -15,11 +15,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.avit.kbcpremium.NetworkApi;
 import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.RetrofitClient;
 import com.avit.kbcpremium.SharedPrefNames;
+import com.avit.kbcpremium.ui.appointment.AppointmentFragment;
+import com.avit.kbcpremium.ui.appointment.AppointmentItem;
 import com.avit.kbcpremium.ui.booking.SelectedItem;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +40,7 @@ public class BookSeatFragment  extends Fragment {
     private ArrayList<SelectedItem> selectedItems;
     private String TAG = "BookSeat";
     private ArrayList<Integer> timeIds;
-    private String selectedDate,selectedTime,thh,tzone,tydate,bookingCat;
+    private String selectedDate,selectedTime,thh,tzone,tydate,bookingCat,bookingId;
     private View prevView,fView;
     private LinearLayout datesView;
     private ViewGroup viewGroup;
@@ -46,6 +49,7 @@ public class BookSeatFragment  extends Fragment {
     private LinearLayout billItemsView;
     private SharedPreferences sharedPreferences;
     private int total;
+    private BookSeatViewModel viewModel;
 
     @Nullable
     @Override
@@ -53,6 +57,7 @@ public class BookSeatFragment  extends Fragment {
         View root = inflater.inflate(R.layout.fragment_bookseat,container,false);
         fView = root;
         viewGroup = container;
+        viewModel = ViewModelProviders.of(this).get(BookSeatViewModel.class);
 
         sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
         timeIds = new ArrayList<>();
@@ -109,9 +114,10 @@ public class BookSeatFragment  extends Fragment {
         String nearBy = sharedPreferences.getString(SharedPrefNames.NEAR_ADDRESS,"");
         String phoneNo = sharedPreferences.getString(SharedPrefNames.PH_NUMBER,"");
         String fcm_id = sharedPreferences.getString(SharedPrefNames.SOCKET_ID,"");
+        bookingId = generateOrderId(18);
 
         BookingNotificationPostData data = new BookingNotificationPostData(name,phoneNo,fcm_id
-                ,total,selectedItems,address,nearBy,generateOrderId(18),bookingCat,selectedDate,selectedTime);
+                ,total,selectedItems,address,nearBy,bookingId,bookingCat,selectedDate,selectedTime);
 
         Call<BookingNotificationResponseData> call = networkApi.sendBookingNotifcation(data);
 
@@ -121,7 +127,9 @@ public class BookSeatFragment  extends Fragment {
                 BookingNotificationResponseData responseData = response.body();
 
                 if(responseData.isStatus()){
-
+                    Toast.makeText(getContext(),"Booking Has Been Registered",Toast.LENGTH_SHORT)
+                            .show();
+                    saveToDatabse();
                 }else {
                     Toast.makeText(getContext(),"Sorry But Seat is Unavaible so change Time",Toast.LENGTH_LONG)
                             .show();
@@ -134,6 +142,26 @@ public class BookSeatFragment  extends Fragment {
 
             }
         });
+
+    }
+
+    private void saveToDatabse(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for(SelectedItem selectedItem : selectedItems){
+            stringBuilder.append(selectedItem.getName() + "=");
+        }
+
+        AppointmentItem appointmentItem = new AppointmentItem(stringBuilder.toString(),selectedDate
+                ,selectedTime,bookingId,0,total);
+
+        viewModel.insert(appointmentItem);
+
+        Fragment appointFragment = new AppointmentFragment();
+        getFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment
+                        ,appointFragment)
+                .addToBackStack(null)
+                .commit();
 
     }
 
@@ -184,12 +212,23 @@ public class BookSeatFragment  extends Fragment {
             final Button button = root.findViewById(timeIds.get(i));
             int temp = timeIds.get(i);
             String temp2 = button.getText().toString().split(":")[0];
-            if((temp == R.id.t9 || temp == R.id.t10 || temp == R.id.t11 || temp == R.id.t12) && selectedDate.contains(tydate)){
-                if(tzone.contains("PM")){
-                    button.setClickable(false);
-                    button.setBackgroundColor(getResources().getColor(R.color.text_color));
-                }else {
-                    if (Integer.parseInt(temp2) <= Integer.parseInt(thh)) {
+
+            if(selectedDate.contains(tydate)) {
+                if ((temp == R.id.t9 || temp == R.id.t10 || temp == R.id.t11 || temp == R.id.t12)) {
+                    if (tzone.contains("PM")) {
+                        button.setClickable(false);
+                        button.setBackgroundColor(getResources().getColor(R.color.text_color));
+                    } else {
+                        if (Integer.parseInt(temp2) <= Integer.parseInt(thh)) {
+                            button.setClickable(false);
+                            button.setBackgroundColor(getResources().getColor(R.color.text_color));
+                        } else {
+                            button.setClickable(true);
+                            button.setBackgroundColor(getResources().getColor(R.color.buttonActive));
+                        }
+                    }
+                } else if (tzone.contains("PM") && !thh.contains("12")) {
+                    if (Integer.parseInt(temp2) <= Integer.parseInt(thh) && selectedDate.contains(tydate)) {
                         button.setClickable(false);
                         button.setBackgroundColor(getResources().getColor(R.color.text_color));
                     } else {
@@ -197,15 +236,12 @@ public class BookSeatFragment  extends Fragment {
                         button.setBackgroundColor(getResources().getColor(R.color.buttonActive));
                     }
                 }
-            }else if(tzone.contains("PM") && !thh.contains("12")){
-                if(Integer.parseInt(temp2) <= Integer.parseInt(thh) && selectedDate.contains(tydate)){
-                    button.setClickable(false);
-                    button.setBackgroundColor(getResources().getColor(R.color.text_color));
-                }else {
-                    button.setClickable(true);
-                    button.setBackgroundColor(getResources().getColor(R.color.buttonActive));
-                }
+            }else {
+                button.setClickable(true);
+                button.setBackgroundColor(getResources().getColor(R.color.buttonActive));
             }
+
+
             if(button.isClickable()){
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override

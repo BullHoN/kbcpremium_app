@@ -10,17 +10,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.avit.kbcpremium.ui.appointment.AppointmentItem;
 import com.avit.kbcpremium.ui.cart.CartItem;
 import com.avit.kbcpremium.ui.orders.OrderItem;
 
 
-@Database(entities = {CartItem.class, OrderItem.class},version = 1)
+@Database(entities = {CartItem.class, OrderItem.class, AppointmentItem.class},version = 1)
 public abstract class CartItemDatabase extends RoomDatabase {
 
     private static CartItemDatabase instance;
 
     public abstract  CartItemDao cartItemDao();
     public abstract OrderItemDao orderItemDao();
+    public abstract AppointmentItemDao appointmentItemDao();
 
     public static synchronized CartItemDatabase getInstance(Context context){
         if (instance == null){
@@ -44,17 +46,17 @@ public abstract class CartItemDatabase extends RoomDatabase {
 //
 //    private static class PopulatedbAsyncTask extends AsyncTask<Void,Void,Void> {
 //
-//        private CartItemDao cartItemDao;
+//        private AppointmentItemDao cartItemDao;
 //
 //        private PopulatedbAsyncTask(CartItemDatabase db){
 //
-//            cartItemDao = db.cartItemDao();
+//            cartItemDao = db.appointmentItemDao();
 //        }
 //
 //        @Override
 //        protected Void doInBackground(Void... voids) {
 //
-//            CartItem item = new CartItem("Serie sas",300);
+//            AppointmentItem item = new AppointmentItem(1,"asfasfasf","asfafasf","asasgasg","asgasg",1);
 //
 //            cartItemDao.insert(item);
 //

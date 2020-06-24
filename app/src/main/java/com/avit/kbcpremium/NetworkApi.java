@@ -27,8 +27,8 @@ import retrofit2.http.Query;
 
 public interface NetworkApi {
 
-    String BASE_URL = "http://192.168.225.20:5000/";
-//    String BASE_URL = "https://www.up63cafe.com/";
+//    String BASE_URL = "http://192.168.225.20:5000/";
+    String BASE_URL = "http://18.188.149.40:5000/";
 
     @GET("/brandProducts/{id}")
     Call<ArrayList<SubProducts>> getBrandItems(@Path(value = "id") String brandName,@Query("offset") int offset,@Query("start") int start);
