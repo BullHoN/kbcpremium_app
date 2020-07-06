@@ -3,10 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingRight="26dp">
+    android:paddingLeft="22dp">
 
     <LinearLayout
-        android:layout_width="72dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:background="@drawable/booking_back"
         android:orientation="vertical"
@@ -15,21 +15,22 @@
 
         <ImageView
             android:id="@+id/booking_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_hair_cut" />
 
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/booking_heading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center"
-            android:text="Hair Style"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textSize="10sp" />
+            android:text="Hair Treatment and Spa"
+            android:minLines="2"
+            android:maxLines="20"
+            android:textSize="14sp" />
 
     </LinearLayout>
 

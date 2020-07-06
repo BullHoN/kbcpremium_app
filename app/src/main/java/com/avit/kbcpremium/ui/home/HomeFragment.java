@@ -19,10 +19,12 @@ import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.SharedPrefNames;
 import com.avit.kbcpremium.ui.appointment.AppointmentFragment;
 import com.avit.kbcpremium.ui.booking.BookingDetailsFragment;
+import com.avit.kbcpremium.ui.bookings.BookingsFragment;
 import com.avit.kbcpremium.ui.cart.CartFragment;
 import com.avit.kbcpremium.ui.products.BrandItem;
 import com.avit.kbcpremium.ui.products.ProductItem;
 import com.avit.kbcpremium.ui.products.ProductsFragment;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,17 @@ public class HomeFragment extends Fragment {
         String user_name = sharedPreferences.getString(SharedPrefNames.USER_NAME,"");
         TextView nameView =  root.findViewById(R.id.username);
         nameView.setText(user_name);
+
+        final Fragment bookingsFragment = new BookingsFragment();
+        root.findViewById(R.id.viewall).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment,bookingsFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         final Fragment cartFragment = new CartFragment();
         getActivity().findViewById(R.id.openCart).setOnClickListener(new View.OnClickListener() {
@@ -81,10 +94,15 @@ public class HomeFragment extends Fragment {
             TextView textView =  itemView.findViewById(R.id.booking_heading);
             textView.setText(bookingItems.get(i).getTitle());
 
+            final Bundle bundle = new Bundle();
+            bundle.putString("name",bookingItems.get(i).getTitle());
+            bundle.putStringArray("items",bookingItems.get(i).getItems());
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Fragment bookingDetailsFragment = new BookingDetailsFragment();
+                    bookingDetailsFragment.setArguments(bundle);
                     getFragmentManager().beginTransaction()
                             .replace(R.id.nav_host_fragment
                                     ,bookingDetailsFragment)
@@ -111,6 +129,10 @@ public class HomeFragment extends Fragment {
             for(int j=0;j<productItems.size();j++){
                 ProductItem curr = productItems.get(j);
                 View productView = getLayoutInflater().inflate(R.layout.product_item,viewGroup,false);
+
+                ImageView imageView = productView.findViewById(R.id.image);
+                Glide.with(getContext()).load(curr.getImageUrl()).into(imageView);
+
                 TextView productNameView = productView.findViewById(R.id.product_name);
                 productNameView.setText(curr.getName());
 
@@ -123,13 +145,13 @@ public class HomeFragment extends Fragment {
                 TextView productPriceView = productView.findViewById(R.id.product_price);
                 TextView productPrice2View = productView.findViewById(R.id.product_price2);
 
-                productPriceView.setText("Price: $" + curr.getPrice());
+                productPriceView.setText("Price: ₹" + curr.getPrice());
                 if(curr.getDiscount() !=0) {
                     float price = curr.getPrice() - curr.getPrice()*(float)(curr.getDiscount()/100.0);
 
                     productPriceView.setPaintFlags(productPriceView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-                    productPrice2View.setText("Price: $" + Math.round(price));
+                    productPrice2View.setText("Price: ₹" + Math.round(price));
                     productPrice2View.setVisibility(View.VISIBLE);
                 }
 

@@ -88,13 +88,32 @@
             android:layout_marginTop="24dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Available Bookings"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+            <LinearLayout
+                android:paddingRight="24dp"
+                android:weightSum="1"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Available Bookings"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/viewall"
+                    android:gravity="end"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/categoryHeading"
+                    android:text="View All"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/booking_row1"

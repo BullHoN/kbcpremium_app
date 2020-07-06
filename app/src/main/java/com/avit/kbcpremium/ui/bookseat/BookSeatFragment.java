@@ -342,8 +342,8 @@ public class BookSeatFragment  extends Fragment {
             case "tue":
                 return "Wed";
             case "wed":
-                return "Th";
-            case "th":
+                return "Thu";
+            case "thu":
                 return "Fri";
             case "fri":
                 return "Sat";

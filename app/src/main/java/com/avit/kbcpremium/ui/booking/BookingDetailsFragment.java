@@ -51,17 +51,28 @@ public class BookingDetailsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_bookingdetails,container,false);
         viewGroup = container;
 
+        root.findViewById(R.id.back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
         itemsView = root.findViewById(R.id.items);
         progressBar = root.findViewById(R.id.progress);
         bookingBoxView = root.findViewById(R.id.bookingBox);
         bookingCountView = root.findViewById(R.id.bookingServices);
         bookingPriceView = root.findViewById(R.id.bookingAmount);
 
+        TextView titleView = root.findViewById(R.id.title);
+        final String name = getArguments().getString("name");
+        titleView.setText(name);
+
         root.findViewById(R.id.bookbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("booking_cat","Hair Care");
+                bundle.putString("booking_cat",name);
                 bundle.putParcelableArrayList("bookingItems",selectedItems);
 
                 Fragment bookSeatFragment = new BookSeatFragment();
@@ -77,7 +88,11 @@ public class BookingDetailsFragment extends Fragment {
         });
 
         selectedItems = new ArrayList<>();
-        getBookingItem("Hair Care");
+
+        String items[] = getArguments().getStringArray("items");
+        for(int i=0;i<items.length;i++) {
+            getBookingItem(items[i]);
+        }
 
         return root;
     }
@@ -118,7 +133,7 @@ public class BookingDetailsFragment extends Fragment {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),R.layout.spinner_item,bookingItems.getOptions());
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-            Spinner spinner = itemView.findViewById(R.id.spinner);
+            final Spinner spinner = itemView.findViewById(R.id.spinner);
             spinner.setAdapter(adapter);
 
             final TextView priceView = itemView.findViewById(R.id.price);
@@ -143,6 +158,10 @@ public class BookingDetailsFragment extends Fragment {
                         selectedItem.setPrice(temp);
 
                         updateSelected(selectedItem);
+                    }
+
+                    if(bookingItems.getOptions().size() == 1){
+                        spinner.setVisibility(View.INVISIBLE);
                     }
 
                     updateTheBookingView();

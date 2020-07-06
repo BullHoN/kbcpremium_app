@@ -85,6 +85,10 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
                 offset = 15;
                 getBrandWithOnlyItems(brandName,start,offset);
                 break;
+            case "Loreal Professional":
+                offset = 12;
+                getBrandWithOnlyItems(brandName,start,offset);
+                break;
         }
         subCategoriesView = root.findViewById(R.id.sub_categories);
 
@@ -115,6 +119,7 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
             View productView = getLayoutInflater().inflate(R.layout.sub_product_item,container,false);
             final ProductItem curr = productItems.get(i);
 
+//            Log.i(TAG,curr.getPrice() + curr.getName() + " " + curr.getImageUrl());
             ImageView productImage = productView.findViewById(R.id.productImage);
             Glide.with(getContext()).load(curr.getImageUrl()).into(productImage);
 
@@ -261,6 +266,9 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
                     getBrandItems(brandName,start,offset);
                     break;
                 case "Lotus Professional":
+                    getBrandWithOnlyItems(brandName,start,offset);
+                    break;
+                case "Loreal Professional":
                     getBrandWithOnlyItems(brandName,start,offset);
                     break;
             }
