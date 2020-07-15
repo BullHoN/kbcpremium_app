@@ -25,7 +25,7 @@ public class AppointmentFragment extends Fragment {
     private static final String TAG = "AppointmentFragment";
     private AppointmentFragmentViewModel viewModel;
     private List<AppointmentItem> mAppointmentItems;
-    private LinearLayout itemsView;
+    private LinearLayout itemsView,previousView;
     private ViewGroup viewGroup;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -34,12 +34,12 @@ public class AppointmentFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_appointment, container, false);
         viewModel = ViewModelProviders.of(this).get(AppointmentFragmentViewModel.class);
         itemsView = root.findViewById(R.id.items);
+        previousView = root.findViewById(R.id.previous);
         viewGroup = container;
 
         viewModel.getAllItems().observe(this, new Observer<List<AppointmentItem>>() {
             @Override
             public void onChanged(List<AppointmentItem> appointmentItems) {
-                Log.i(TAG, appointmentItems.size() + "");
                 mAppointmentItems = appointmentItems;
                 populateUI();
             }
@@ -83,7 +83,11 @@ public class AppointmentFragment extends Fragment {
             TextView timeView = view.findViewById(R.id.time);
             timeView.setText(curr.getTime());
 
-            itemsView.addView(view);
+            if(curr.getStatus() == 1){
+                previousView.addView(view);
+            }else {
+                itemsView.addView(view);
+            }
         }
     }
 

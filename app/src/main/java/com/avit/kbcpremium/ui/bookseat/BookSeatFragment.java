@@ -1,6 +1,8 @@
 package com.avit.kbcpremium.ui.bookseat;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +52,7 @@ public class BookSeatFragment  extends Fragment {
     private SharedPreferences sharedPreferences;
     private int total;
     private BookSeatViewModel viewModel;
+    private LinearLayout timingView,marrigeView;
 
     @Nullable
     @Override
@@ -68,6 +71,16 @@ public class BookSeatFragment  extends Fragment {
         bookingCat = getArguments().getString("booking_cat");
         billItemsView = root.findViewById(R.id.bill_items);
         totalView = root.findViewById(R.id.total);
+        timingView = root.findViewById(R.id.timing);
+        marrigeView = root.findViewById(R.id.marrige);
+
+        if(bookingCat.contains("Bridal")){
+            timingView.setVisibility(View.GONE);
+            selectedTime = "None";
+        }else {
+            marrigeView.setVisibility(View.GONE);
+        }
+
         setUpBillItems();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E,dd MMM yyyy,hh:mm:ss,a,MM");
@@ -98,11 +111,32 @@ public class BookSeatFragment  extends Fragment {
                             .show();
                     return;
                 }
-                sendNotification();
+                showAlertBox();
             }
         });
 
         return root;
+    }
+
+    private void showAlertBox(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setMessage("Are You Sure You Want To Book Seat ?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendNotification();
+                    }
+                });
+
+        builder.show();
+
     }
 
     private void sendNotification(){
@@ -213,7 +247,7 @@ public class BookSeatFragment  extends Fragment {
             int temp = timeIds.get(i);
             String temp2 = button.getText().toString().split(":")[0];
 
-            if(selectedDate.contains(tydate)) {
+            if(tydate.contains(selectedDate)) {
                 if ((temp == R.id.t9 || temp == R.id.t10 || temp == R.id.t11 || temp == R.id.t12)) {
                     if (tzone.contains("PM")) {
                         button.setClickable(false);

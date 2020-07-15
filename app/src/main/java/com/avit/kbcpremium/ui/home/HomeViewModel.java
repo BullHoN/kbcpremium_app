@@ -30,12 +30,12 @@ public class HomeViewModel extends ViewModel {
         booking1.add(new BookingItem("Hair \nTreatment", R.drawable.ic_hair_salon,hairTreatment));
         booking1.add(new BookingItem("Bleach & Cleanup",R.drawable.ic_makeup,BleachCleanUp));
         booking1.add(new BookingItem("Color & Highlight",R.drawable.ic_hair,colorHighlight));
-        booking1.add(new BookingItem("Mehandi & Touchups",R.drawable.ic_henna_painted_hand,Mehandi));
+        booking1.add(new BookingItem("Mehandi & Touchups",R.drawable.ic_henna,Mehandi));
 
         booking2 = new ArrayList<>();
         booking2.add(new BookingItem("Hair\nRebounding", R.drawable.ic_hair_cut,hairRebounding));
         booking2.add(new BookingItem("KBC\nSpecial",R.drawable.ic_magic_wand,kbcSpecial));
-        booking2.add(new BookingItem("Make-Up\n(Bridal,Party)",R.drawable.ic_blush,bridalMakeUp));
+        booking2.add(new BookingItem("Make-Up\n(Bridal,Party)",R.drawable.ic_wedding,bridalMakeUp));
 
         ArrayList<ProductItem> productItems = new ArrayList<>();
         productItems.add(new ProductItem(375,"Deep Pore Cleansing Face Wash(80 g)",1,"http:/"+ "/" +"18.188.149.40:5000/images/Lotus Professional/Deep Pore Cleansing Face Wash(80 g).png"));

@@ -24,15 +24,10 @@ public class UserFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_user, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-        root.findViewById(R.id.orders).setOnClickListener(new View.OnClickListener() {
+
+
+        root.findViewById(R.id.my_orders).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment ordersFragment = new OrdersFragment();

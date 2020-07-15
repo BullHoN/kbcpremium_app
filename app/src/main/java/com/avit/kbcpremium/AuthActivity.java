@@ -17,6 +17,7 @@ import com.avit.kbcpremium.auth.LoginResponseData;
 import com.avit.kbcpremium.auth.Userdata;
 import com.avit.kbcpremium.dialogs.LoginBottomSheetDialog;
 import com.avit.kbcpremium.dialogs.SignUpBottomSheetDialog;
+import com.avit.kbcpremium.ui.OtpActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +40,7 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String phoneNo = phoneNoView.getText().toString();
-                if(phoneNo.length() != 10){
+                if(phoneNo.length() != 10 || !isPhoneNo(phoneNo)){
                     Toast.makeText(getApplicationContext(),"Not A Valid Number",Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -49,6 +50,23 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private Boolean isPhoneNo(String no){
+        for(int i=0;i<no.length();i++){
+            if(!isNumber(no.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Boolean isNumber(char ch){
+        if(ch == '0' || ch == '1' || ch == '2' || ch == '3'
+            || ch == '4' || ch == '5' || ch == '6' || ch == '7' || ch == '8' || ch == '9'){
+            return true;
+        }
+        return false;
     }
 
     private void sendLoginData(final String phoneNo){
@@ -64,10 +82,16 @@ public class AuthActivity extends AppCompatActivity {
                 LoginResponseData loginResponseData = response.body();
                 Log.i(TAG,loginResponseData.toString());
                 if(!loginResponseData.getAccountExists()){
-                    // start register activity
-                    Intent intent = new Intent(getApplicationContext(),AddressActivity.class);
+                    // start otp activity
+
+                    Intent intent = new Intent(getApplicationContext(), OtpActivity.class);
                     intent.putExtra("phoneNo",phoneNo);
+                    intent.putExtra("otp",loginResponseData.getOtp());
                     startActivityForResult(intent,EXIT_CODE);
+
+//                    Intent intent = new Intent(getApplicationContext(),AddressActivity.class);
+//                    intent.putExtra("phoneNo",phoneNo);
+//                    startActivityForResult(intent,EXIT_CODE);
                 }else {
                     Userdata userdata = loginResponseData.getAccountData();
                     saveToSharedPref(userdata,phoneNo);

@@ -43,6 +43,22 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_marginBottom="24dp"
+            style="@style/Heading"
+            android:text="Previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/previous"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="64dp"/>

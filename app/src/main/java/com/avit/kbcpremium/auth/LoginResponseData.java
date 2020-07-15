@@ -4,10 +4,16 @@ public class LoginResponseData {
 
     private Boolean accountExists;
     private Userdata accountData;
+    private String otp;
 
-    public LoginResponseData(Boolean accountExists, Userdata accountData) {
+    public LoginResponseData(Boolean accountExists, Userdata accountData,String otp) {
         this.accountExists = accountExists;
         this.accountData = accountData;
+        this.otp = otp;
+    }
+
+    public String getOtp() {
+        return otp;
     }
 
     public Boolean getAccountExists() {
@@ -21,7 +27,7 @@ public class LoginResponseData {
     @Override
     public String toString() {
         return "LoginResponseData{" +
-                "accountExists=" + accountExists +
+                "otp='" + otp + '\'' +
                 '}';
     }
 }

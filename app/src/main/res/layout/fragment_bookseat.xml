@@ -64,8 +64,38 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/marrige"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/subHeading"
+                android:text="Total Seats(Per Day): 15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                style="@style/subHeading"
+                android:text="Available Seats: 4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                style="@style/item_text"
+                android:textColor="@color/golden"
+                android:text="There is no option for choosing time \n our team will call out to you"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/timing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

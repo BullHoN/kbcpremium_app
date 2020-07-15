@@ -68,7 +68,6 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
         String address = sharedPreferences.getString(SharedPrefNames.ADDRESS,"");
         String phoneNo = sharedPreferences.getString(SharedPrefNames.PH_NUMBER,"");
 
-
         addressView = root.findViewById(R.id.address);
         addressView.setText(address);
 

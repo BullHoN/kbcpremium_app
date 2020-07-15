@@ -58,6 +58,8 @@ public class OrderFragmentCustomAdapter extends ArrayAdapter<OrderItem> {
 
         deliveryTimeView.setText("Will Be Delivered Soon");
 
+        Log.i("Order",currentItem.getStatus()+"");
+
         switch (currentItem.getStatus()){
             case 0:
                 imageView.setImageResource(R.drawable.ic_pending);
@@ -77,6 +79,7 @@ public class OrderFragmentCustomAdapter extends ArrayAdapter<OrderItem> {
             case -1:
                 imageView.setImageResource(R.drawable.ic_cancled);
                 imageTextView.setText("Order is cancled!!");
+                break;
             default:
                 imageView.setImageResource(R.drawable.ic_pending);
                 imageTextView.setText("Order in process");

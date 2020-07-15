@@ -32,6 +32,8 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
 
         phoneNo = getIntent().getStringExtra("phoneNo");
+        Log.i(TAG,phoneNo);
+
         final EditText nameView = findViewById(R.id.name);
         final EditText addressView = findViewById(R.id.rawaddress);
         final EditText nearByAddressView = findViewById(R.id.nearbyaddress);
@@ -67,7 +69,7 @@ public class AddressActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 ResponseBody responseBody = response.body();
                 Log.i(TAG,"Registered Success");
-                saveToSharedPrefs(name,phoneNo,address,nearbyAddress);
+                saveToSharedPrefs(name,address,nearbyAddress,phoneNo);
             }
 
             @Override
@@ -99,7 +101,6 @@ public class AddressActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
         startActivity(intent);
-        setResult(RESULT_OK,null);
         finish();
     }
 

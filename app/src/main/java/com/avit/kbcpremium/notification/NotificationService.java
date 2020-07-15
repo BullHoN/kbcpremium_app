@@ -15,10 +15,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.room.FtsOptions;
 
 import com.avit.kbcpremium.HomeActivity;
 import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.SharedPrefNames;
+import com.avit.kbcpremium.db.AppointmentItemRepository;
+import com.avit.kbcpremium.db.OrderItemRepository;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -53,8 +56,22 @@ public class NotificationService extends FirebaseMessagingService {
 
         String title = data.get("title");
         String body = data.get("body");
+        String orderId = data.get("orderId");
 
         Log.i("Notifcation","New notification arrived");
+        AppointmentItemRepository repository = new AppointmentItemRepository(getApplication());
+        OrderItemRepository repository1 = new OrderItemRepository(getApplication());
+
+
+        if(title.contains("Booking")){
+            NotificationReceiveData data1 = new NotificationReceiveData(orderId,1);
+            repository.updateData(data1);
+        }else {
+            int status = Integer.parseInt(data.get("status"));
+            NotificationReceiveData data1 = new NotificationReceiveData(orderId,status);
+            repository1.updateData(data1);
+        }
+
         generateNotification(title,body);
 
     }
