@@ -10,4 +10,6 @@ public class SharedPrefNames {
     public static String PH_NUMBER = "KBC_PREMIUM_User_number";
     public static String SOCKET_ID = "KBC_PREMIUM_Socket_Id";
     public static String PINCODE = "KBC_PREMIUM_Pincode";
+    public static String ORDERITEM = "KBC_PREMIUM_OrderItem";
+    public static String DELIVERYCHARGE = "KBC_PREMIUM_DeliveryCharge";
 }

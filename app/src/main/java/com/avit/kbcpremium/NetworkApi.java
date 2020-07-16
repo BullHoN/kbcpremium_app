@@ -8,6 +8,7 @@ import com.avit.kbcpremium.notification.NotificationResponseData;
 import com.avit.kbcpremium.ui.booking.BookingItems;
 import com.avit.kbcpremium.ui.bookseat.BookingNotificationPostData;
 import com.avit.kbcpremium.ui.bookseat.BookingNotificationResponseData;
+import com.avit.kbcpremium.ui.bookseat.BookingSeatDetails;
 import com.avit.kbcpremium.ui.cart.AvailabilityResponse;
 import com.avit.kbcpremium.ui.cart.CartItem;
 import com.avit.kbcpremium.ui.products.BrandItem;
@@ -54,6 +55,7 @@ public interface NetworkApi {
     @POST("/bookseat")
     Call<BookingNotificationResponseData> sendBookingNotifcation(@Body BookingNotificationPostData bookingNotificationPostData);
 
-
+    @GET("/bookseat/{id}")
+    Call<BookingSeatDetails> getBookingSeatDetails(@Path(value = "id") String date);
 
 }

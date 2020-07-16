@@ -1,6 +1,8 @@
 package com.avit.kbcpremium.ui.home;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -17,10 +19,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.SharedPrefNames;
+import com.avit.kbcpremium.dialogs.CartBottomSheetDialog;
 import com.avit.kbcpremium.ui.appointment.AppointmentFragment;
 import com.avit.kbcpremium.ui.booking.BookingDetailsFragment;
 import com.avit.kbcpremium.ui.bookings.BookingsFragment;
 import com.avit.kbcpremium.ui.cart.CartFragment;
+import com.avit.kbcpremium.ui.cart.CartItem;
 import com.avit.kbcpremium.ui.products.BrandItem;
 import com.avit.kbcpremium.ui.products.ProductItem;
 import com.avit.kbcpremium.ui.products.ProductsFragment;
@@ -115,6 +119,38 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    private void addToCart(CartItem cartItem){
+        homeViewModel.insertCartItem(cartItem);
+    }
+
+    private void showAlertBox(final CartItem cartItem){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setMessage("Add This Item To Cart ?")
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        addToCart(cartItem);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("item_name",cartItem.getItemName());
+
+                        CartBottomSheetDialog cartBottomSheetDialog = new CartBottomSheetDialog();
+                        cartBottomSheetDialog.setArguments(bundle);
+                        cartBottomSheetDialog.show(getFragmentManager(),"addToCart");
+                    }
+                });
+
+        builder.show();
+
+    }
+
     private void setBrandCategories(){
         ArrayList<BrandItem> brandItems = homeViewModel.getProductItems();
 
@@ -127,8 +163,15 @@ public class HomeFragment extends Fragment {
             ArrayList<ProductItem> productItems = brandItems.get(i).getItems();
 
             for(int j=0;j<productItems.size();j++){
-                ProductItem curr = productItems.get(j);
+                final ProductItem curr = productItems.get(j);
                 View productView = getLayoutInflater().inflate(R.layout.product_item,viewGroup,false);
+
+                productView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showAlertBox(new CartItem(curr.getName(),curr.getPrice(),curr.getImageUrl()));
+                    }
+                });
 
                 ImageView imageView = productView.findViewById(R.id.image);
                 Glide.with(getContext()).load(curr.getImageUrl()).into(imageView);

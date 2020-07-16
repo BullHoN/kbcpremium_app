@@ -91,17 +91,19 @@ public class BookingsFragment extends Fragment {
         String Mehandi[] = {"Mehandi"};
         String thread[] = {"Threading","Waxing"};
         String nailCare[] = {"Skin"};
+        String touchUps[] = {"TouchUps"};
 
         bookingItems.add(new BookingItem("Hair \nTreatment", R.drawable.ic_hair_salon,hairTreatment));
         bookingItems.add(new BookingItem("Bleach & Cleanup",R.drawable.ic_makeup,BleachCleanUp));
         bookingItems.add(new BookingItem("Color & Highlight",R.drawable.ic_hair,colorHighlight));
-        bookingItems.add(new BookingItem("Mehandi & Touchups",R.drawable.ic_henna,Mehandi));
-
+        bookingItems.add(new BookingItem("Mehandi",R.drawable.ic_henna,Mehandi));
         bookingItems.add(new BookingItem("Hair\nRebounding", R.drawable.ic_hair_cut,hairRebounding));
+
         bookingItems.add(new BookingItem("KBC\nSpecial",R.drawable.ic_magic_wand,kbcSpecial));
         bookingItems.add(new BookingItem("Make-Up\n(Bridal,Party)",R.drawable.ic_wedding,bridalMakeUp));
         bookingItems.add(new BookingItem("Thread & Waxing",R.drawable.ic_wax,thread));
         bookingItems.add(new BookingItem("Skin & Nail Care",R.drawable.ic_fashion,nailCare));
+        bookingItems.add(new BookingItem("TouchUps",R.drawable.ic_eyebrow,touchUps));
 
         return bookingItems;
     }

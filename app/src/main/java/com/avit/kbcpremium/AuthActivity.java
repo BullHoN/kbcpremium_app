@@ -83,18 +83,25 @@ public class AuthActivity extends AppCompatActivity {
                 Log.i(TAG,loginResponseData.toString());
                 if(!loginResponseData.getAccountExists()){
                     // start otp activity
-
                     Intent intent = new Intent(getApplicationContext(), OtpActivity.class);
                     intent.putExtra("phoneNo",phoneNo);
                     intent.putExtra("otp",loginResponseData.getOtp());
+                    intent.putExtra("type","0");
+
                     startActivityForResult(intent,EXIT_CODE);
 
-//                    Intent intent = new Intent(getApplicationContext(),AddressActivity.class);
-//                    intent.putExtra("phoneNo",phoneNo);
-//                    startActivityForResult(intent,EXIT_CODE);
                 }else {
                     Userdata userdata = loginResponseData.getAccountData();
-                    saveToSharedPref(userdata,phoneNo);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("userData",userdata.getTheArray());
+
+                    Intent intent = new Intent(getApplicationContext(), OtpActivity.class);
+                    intent.putExtra("bundle",bundle);
+                    intent.putExtra("type","1");
+                    intent.putExtra("phoneNo",phoneNo);
+                    intent.putExtra("otp",loginResponseData.getOtp());
+
+                    startActivityForResult(intent,EXIT_CODE);
                 }
             }
 
@@ -106,7 +113,7 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
-    private void saveToSharedPref(Userdata userdata,String phoneNo){
+    private void saveToSharedPref(Userdata userdata,String phoneNo,String otp){
         SharedPreferences sharedPreferences = getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
 
         String userName = SharedPrefNames.USER_NAME;

@@ -53,6 +53,7 @@ public class BookSeatFragment  extends Fragment {
     private int total;
     private BookSeatViewModel viewModel;
     private LinearLayout timingView,marrigeView;
+    private TextView availableSeatsView;
 
     @Nullable
     @Override
@@ -74,12 +75,6 @@ public class BookSeatFragment  extends Fragment {
         timingView = root.findViewById(R.id.timing);
         marrigeView = root.findViewById(R.id.marrige);
 
-        if(bookingCat.contains("Bridal")){
-            timingView.setVisibility(View.GONE);
-            selectedTime = "None";
-        }else {
-            marrigeView.setVisibility(View.GONE);
-        }
 
         setUpBillItems();
 
@@ -89,8 +84,21 @@ public class BookSeatFragment  extends Fragment {
         String arr[] = currentDateandTime.split(",");
         final String date = arr[1];
         tydate = date;
+        if(tydate.charAt(0) == '0'){
+            tydate.replaceFirst("0","");
+        }
+
         dateView = root.findViewById(R.id.date);
         dateView.setText(date);
+
+        if(bookingCat.contains("Bridal")){
+            timingView.setVisibility(View.GONE);
+            selectedTime = "As Per as comfort";
+            availableSeatsView = root.findViewById(R.id.availableSeats);
+            getBookingSeats(tydate);
+        }else {
+            marrigeView.setVisibility(View.GONE);
+        }
 
         int tdate = Integer.parseInt(date.split(" ")[0]);
         String tday = arr[0];
@@ -116,6 +124,30 @@ public class BookSeatFragment  extends Fragment {
         });
 
         return root;
+    }
+
+    private void getBookingSeats(String date){
+        Retrofit retrofit = RetrofitClient.getInstance();
+        NetworkApi networkApi = retrofit.create(NetworkApi.class);
+
+        Call<BookingSeatDetails> call = networkApi.getBookingSeatDetails(date);
+
+        call.enqueue(new Callback<BookingSeatDetails>() {
+            @Override
+            public void onResponse(Call<BookingSeatDetails> call, Response<BookingSeatDetails> response) {
+                BookingSeatDetails resposeData = response.body();
+
+                availableSeatsView.setText("Available Seats: " + (15 - resposeData.getSeats()));
+
+            }
+
+            @Override
+            public void onFailure(Call<BookingSeatDetails> call, Throwable t) {
+                Toast.makeText(getContext(),"Please Check Your Internet Connection",Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
     }
 
     private void showAlertBox(){
@@ -345,6 +377,10 @@ public class BookSeatFragment  extends Fragment {
                             + " " + temp2;
                     dateView.setText(selectedDate);
                     setUpTime();
+
+                    if(bookingCat.contains("Bridal")){
+                        getBookingSeats(selectedDate);
+                    }
                 }
             });
 

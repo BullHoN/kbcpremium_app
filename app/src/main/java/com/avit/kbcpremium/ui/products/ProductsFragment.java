@@ -76,14 +76,18 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
         TextView nwLine = root.findViewById(R.id.nwLine);
         nwLine.setText("All Available \nProducts of " + brandName);
 
+        ImageView logoView = root.findViewById(R.id.logo);
+
         switch (brandName){
             case "Skeyndor":
                 offset = 3;
                 getBrandItems(brandName,start,offset);
+                logoView.setImageResource(R.drawable.skendor);
                 break;
             case "Lotus Professional":
                 offset = 15;
                 getBrandWithOnlyItems(brandName,start,offset);
+                logoView.setImageResource(R.drawable.lotus);
                 break;
             case "Loreal Professional":
                 offset = 12;

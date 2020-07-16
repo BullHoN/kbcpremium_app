@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,9 @@ import com.avit.kbcpremium.notification.NotificationResponseData;
 import com.avit.kbcpremium.ui.orders.OrderItem;
 import com.avit.kbcpremium.ui.orders.OrdersFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.gson.Gson;
+
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 
@@ -50,6 +54,8 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
     private int totalAmount,deliveryCharge;
     private String orderId;
     private HomeActivityViewModel viewModel;
+    private String upiId,upiName;
+    final int UPI_PAYMENT = 0;
 
     @Nullable
     @Override
@@ -57,6 +63,10 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
          View root = inflater.inflate(R.layout.bottom_sheet_address_checkout,container,false);
 
          viewModel = ViewModelProviders.of(this).get(HomeActivityViewModel.class);
+
+         upiId = "7081256474@ybl";
+         upiName = "Prakhar Bhatt";
+
 
          Bundle bundle = getArguments();
          orderItems = bundle.getStringArrayList("order_items");
@@ -87,6 +97,13 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 askFinalPayment();
+            }
+        });
+
+        root.findViewById(R.id.upi_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPaymentProcess(true);
             }
         });
 
@@ -138,13 +155,24 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
     private void startPaymentProcess(boolean upi){
         orderId = generateOrderId(idLength);
         if(orderId.length() != 0 && totalAmount != 0){
+
+            OrderItem orderItem = new OrderItem(0,totalAmount,orderItems.size(),addressView.getText().toString()
+                    ,"Order in Processing",makeItemsString(),orderId);
+
             if(upi){
+
+                Gson gson = new Gson();
+                String orderItemString = gson.toJson(orderItem);
+
+                String orderItemName = SharedPrefNames.ORDERITEM;
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(orderItemName,orderItemString);
+
+                startUPIPayment(String.valueOf(totalAmount));
 
             }else {
                 Toast.makeText(getContext(),"Order is successfully made",Toast.LENGTH_SHORT)
                         .show();
-                OrderItem orderItem = new OrderItem(0,totalAmount,orderItems.size(),addressView.getText().toString()
-                        ,"Order in Processing",makeItemsString(),orderId);
                 saveAndClearCart(orderItem);
                 SendNotificationAndSaveOrder(false,orderItem);
             }
@@ -223,6 +251,30 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
             stringBuilder.append(item + ",");
         }
         return stringBuilder.toString();
+    }
+
+    private void startUPIPayment(String amount){
+        Uri uri = Uri.parse("upi://pay").buildUpon()
+                .appendQueryParameter("pa", upiId)
+                .appendQueryParameter("pn", upiName)
+                .appendQueryParameter("tr", "25584584")
+                .appendQueryParameter("am", amount)
+                .appendQueryParameter("cu", "INR")
+                .build();
+
+        Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
+
+        upiPayIntent.setData(uri);
+
+        Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
+        // check if intent resolves
+        if(null != chooser.resolveActivity(getActivity().getPackageManager())) {
+            getActivity().startActivityForResult(chooser, UPI_PAYMENT);
+        } else {
+            Toast.makeText(getContext(),"No UPI app found, please install one to continue",Toast.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
     @Override

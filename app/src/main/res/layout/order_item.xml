@@ -62,12 +62,27 @@
             android:weightSum="4"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/items"
-                style="@style/item_text"
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5 items " />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/items"
+                    style="@style/item_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 items " />
+
+                <TextView
+                    android:id="@+id/viewall"
+                    style="@style/item_text"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_weight="3"
@@ -154,6 +169,8 @@
             android:text="For Inquery" />
 
         <LinearLayout
+            android:id="@+id/call"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

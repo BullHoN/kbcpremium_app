@@ -13,11 +13,20 @@ public class HomeActivityViewModel extends AndroidViewModel {
 
     private OrderItemRepository repository;
     private CartItemRepository cartItemRepository;
+    private OrderItem mainItem;
 
     public HomeActivityViewModel(@NonNull Application application) {
         super(application);
         repository = new OrderItemRepository(application);
         cartItemRepository = new CartItemRepository(application);
+    }
+
+    public void setMainItem(OrderItem mainItem) {
+        this.mainItem = mainItem;
+    }
+
+    public OrderItem getMainItem() {
+        return mainItem;
     }
 
     public void clearCart(){
