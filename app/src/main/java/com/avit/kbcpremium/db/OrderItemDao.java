@@ -31,4 +31,7 @@ public interface OrderItemDao {
     @Query("UPDATE order_table SET status = :status WHERE order_id = :orderId")
     int UpdateOrder(String orderId , int status);
 
+    @Query("DELETE FROM order_table")
+    void deleteAll();
+
 }

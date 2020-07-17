@@ -7,11 +7,23 @@ public class Userdata {
     private String name;
     private String address;
     private String nearByAddress;
+    private ArrayList<ResponseOrderItem> orderItems;
 
     public Userdata(String name, String address, String nearByAddress) {
         this.name = name;
         this.address = address;
         this.nearByAddress = nearByAddress;
+    }
+
+    public Userdata(String name, String address, String nearByAddress, ArrayList<ResponseOrderItem> orderItems) {
+        this.name = name;
+        this.address = address;
+        this.nearByAddress = nearByAddress;
+        this.orderItems = orderItems;
+    }
+
+    public ArrayList<ResponseOrderItem> getOrderItems() {
+        return orderItems;
     }
 
     public String getName() {

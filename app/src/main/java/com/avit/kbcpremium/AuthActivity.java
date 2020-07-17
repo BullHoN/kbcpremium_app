@@ -18,6 +18,7 @@ import com.avit.kbcpremium.auth.Userdata;
 import com.avit.kbcpremium.dialogs.LoginBottomSheetDialog;
 import com.avit.kbcpremium.dialogs.SignUpBottomSheetDialog;
 import com.avit.kbcpremium.ui.OtpActivity;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -92,8 +93,13 @@ public class AuthActivity extends AppCompatActivity {
 
                 }else {
                     Userdata userdata = loginResponseData.getAccountData();
+
+                    Gson gson = new Gson();
+                    String orderItems =  gson.toJson(userdata.getOrderItems());
+
                     Bundle bundle = new Bundle();
                     bundle.putStringArrayList("userData",userdata.getTheArray());
+                    bundle.putString("orderItems",orderItems);
 
                     Intent intent = new Intent(getApplicationContext(), OtpActivity.class);
                     intent.putExtra("bundle",bundle);

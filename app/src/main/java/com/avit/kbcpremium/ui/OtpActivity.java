@@ -1,6 +1,7 @@
 package com.avit.kbcpremium.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +17,15 @@ import com.avit.kbcpremium.AddressActivity;
 import com.avit.kbcpremium.HomeActivity;
 import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.SharedPrefNames;
+import com.avit.kbcpremium.auth.ResponseOrderItem;
 import com.avit.kbcpremium.auth.Userdata;
+import com.avit.kbcpremium.ui.orders.OrderItem;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mukesh.OnOtpCompletionListener;
 import com.mukesh.OtpView;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class OtpActivity extends AppCompatActivity {
@@ -28,15 +34,34 @@ public class OtpActivity extends AppCompatActivity {
     private Button validateButton;
     private String userOtp = "";
     private static final String TAG = "OtpActivity";
+    private OtpActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+        viewModel = ViewModelProviders.of(this)
+                .get(OtpActivityViewModel.class);
 
         final String phoneNo = getIntent().getStringExtra("phoneNo");
         final String finalOtp = getIntent().getStringExtra("otp");
         final String type = getIntent().getStringExtra("type");
+
+        if(type.equals("1")){
+            Bundle bundle = getIntent().getBundleExtra("bundle");
+            String orderItemsString = bundle.getString("orderItems");
+            if(!orderItemsString.equals("[]")) {
+                String address = bundle.getStringArrayList("userData").get(1);
+
+                Gson gson = new Gson();
+                Type listType = new TypeToken<ArrayList<ResponseOrderItem>>() {
+                }.getType();
+                ArrayList<ResponseOrderItem> orderItems = gson.fromJson(orderItemsString, listType);
+
+                ArrayList<OrderItem> orderItems1 = ResponseOrderItem.convertToOrderItem(orderItems, address);
+                viewModel.addOrderItems(orderItems1);
+            }
+        }
 
         TextView infoView = findViewById(R.id.info);
         infoView.setText("Please type the verification code send to \n " + phoneNo);

@@ -12,4 +12,5 @@ public class SharedPrefNames {
     public static String PINCODE = "KBC_PREMIUM_Pincode";
     public static String ORDERITEM = "KBC_PREMIUM_OrderItem";
     public static String DELIVERYCHARGE = "KBC_PREMIUM_DeliveryCharge";
+    public static String ORDERITEMS = "KBC_PREMIUM_OrderItems";
 }

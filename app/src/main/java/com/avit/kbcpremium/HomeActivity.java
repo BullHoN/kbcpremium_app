@@ -170,14 +170,14 @@ public class HomeActivity extends AppCompatActivity {
         String nearBy = sharedPreferences.getString(SharedPrefNames.NEAR_ADDRESS,"");
         String fcmId = sharedPreferences.getString(SharedPrefNames.SOCKET_ID,"");
         int deliveryCharge = sharedPreferences.getInt(SharedPrefNames.DELIVERYCHARGE,15);
+        String orderItemsString = sharedPreferences.getString(SharedPrefNames.ORDERITEMS,"");
 
-        String[] orderItems = orderItem.getItems().split(",");
+        String orderItems[] = orderItemsString.split("##");
         ArrayList<String> orderItems2 = new ArrayList<>();
 
         for(int i=0;i<orderItems.length;i++){
             orderItems2.add(orderItems[i]);
         }
-
 
         Retrofit retrofit = RetrofitClient.getInstance();
         NetworkApi networkApi = retrofit.create(NetworkApi.class);

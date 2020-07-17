@@ -30,5 +30,7 @@ public interface AppointmentItemDao {
     @Query("UPDATE appointment_table SET status = :status WHERE bookingId = :orderId")
     int UpdateOrder(String orderId , int status);
 
+    @Query("DELETE FROM appointment_table")
+    void deleteAll();
 
 }

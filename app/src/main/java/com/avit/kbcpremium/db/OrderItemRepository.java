@@ -42,6 +42,10 @@ public class OrderItemRepository {
         new DeleteOrderAsyncTask(orderItemDao).execute(orderItem);
     }
 
+    public void deleteAll(){
+        new DeleteAllAsyncTask(orderItemDao).execute();
+    }
+
     private static class DeleteOrderAsyncTask extends AsyncTask<OrderItem,Void,Void>{
 
         private OrderItemDao dao;
@@ -102,6 +106,19 @@ public class OrderItemRepository {
         }
     }
 
+    private static class DeleteAllAsyncTask extends AsyncTask<Void,Void,Void>{
 
+        private OrderItemDao dao;
+
+        public DeleteAllAsyncTask(OrderItemDao dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.deleteAll();
+            return null;
+        }
+    }
 
 }

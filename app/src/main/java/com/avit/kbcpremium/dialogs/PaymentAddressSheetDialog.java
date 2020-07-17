@@ -164,9 +164,17 @@ public class PaymentAddressSheetDialog extends BottomSheetDialogFragment {
                 Gson gson = new Gson();
                 String orderItemString = gson.toJson(orderItem);
 
+                StringBuilder stringBuilder = new StringBuilder();
+                for(String item : orderItems){
+                    stringBuilder.append(item + "##");
+                }
+
                 String orderItemName = SharedPrefNames.ORDERITEM;
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                editor.putString(SharedPrefNames.ORDERITEMS,stringBuilder.toString());
                 editor.putString(orderItemName,orderItemString);
+                editor.apply();
 
                 startUPIPayment(String.valueOf(totalAmount));
 

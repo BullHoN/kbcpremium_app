@@ -14,6 +14,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/logout"
+        android:layout_marginTop="5dp"
+        android:background="@color/golden"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"

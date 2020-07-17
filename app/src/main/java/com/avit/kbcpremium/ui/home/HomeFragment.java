@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private LinearLayout booking1,booking2,categoriesView;
     private ViewGroup viewGroup;
+    private ImageView banner1,banner2,banner3,banner4;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +45,13 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         viewGroup = container;
+
+        banner1 = root.findViewById(R.id.banner1);
+        banner2 = root.findViewById(R.id.banner2);
+        banner3 = root.findViewById(R.id.banner3);
+        banner4 = root.findViewById(R.id.banner4);
+
+        setUpBanner();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
         String user_name = sharedPreferences.getString(SharedPrefNames.USER_NAME,"");
@@ -89,6 +97,13 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private void setUpBanner(){
+        Glide.with(getContext()).load("http://18.188.149.40:5000/images/other/banner1.jpeg").into(banner1);
+        Glide.with(getContext()).load("http://18.188.149.40:5000/images/other/banner2.jpeg").into(banner2);
+        Glide.with(getContext()).load("http://18.188.149.40:5000/images/other/banner3.jpeg").into(banner3);
+        Glide.with(getContext()).load("http://18.188.149.40:5000/images/other/banner4.jpeg").into(banner4);
+    }
+
     private void addBookingItems(LinearLayout linearLayout, ArrayList<BookingItem> bookingItems,ViewGroup container){
         for(int i=0;i<bookingItems.size();i++){
             View itemView = getLayoutInflater().inflate(R.layout.booking_item,container,false);
@@ -123,6 +138,18 @@ public class HomeFragment extends Fragment {
         homeViewModel.insertCartItem(cartItem);
     }
 
+    private void incrementTheCartNo(){
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
+        int currVal = sharedPreferences.getInt(SharedPrefNames.CART_NOITEMS,0);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(SharedPrefNames.CART_NOITEMS,currVal+1);
+        editor.apply();
+
+        TextView cartNum = getActivity().findViewById(R.id.cart_num);
+        cartNum.setText(String.valueOf(currVal+1));
+    }
+
     private void showAlertBox(final CartItem cartItem){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -137,6 +164,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         addToCart(cartItem);
+                        incrementTheCartNo();
 
                         Bundle bundle = new Bundle();
                         bundle.putString("item_name",cartItem.getItemName());

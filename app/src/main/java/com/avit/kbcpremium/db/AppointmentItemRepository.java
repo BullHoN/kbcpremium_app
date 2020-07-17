@@ -42,6 +42,10 @@ public class AppointmentItemRepository {
         new DeleteOrderAsyncTask(appointmentItemDao).execute(appointmentItem);
     }
 
+    public void deleteAll(){
+        new DeleteAllAsyncTask(appointmentItemDao).execute();
+    }
+
     private static class InsertAsyncTask extends AsyncTask<AppointmentItem,Void,Void>{
 
         private AppointmentItemDao dao;
@@ -98,6 +102,21 @@ public class AppointmentItemRepository {
         @Override
         protected Void doInBackground(AppointmentItem... appointmentItems) {
             dao.delete(appointmentItems[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllAsyncTask extends AsyncTask<Void,Void,Void>{
+
+        private AppointmentItemDao dao;
+
+        public DeleteAllAsyncTask(AppointmentItemDao dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            dao.deleteAll();
             return null;
         }
     }
