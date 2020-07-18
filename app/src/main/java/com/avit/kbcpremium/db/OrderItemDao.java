@@ -28,8 +28,8 @@ public interface OrderItemDao {
     @Query("SELECT * FROM order_table ORDER BY _id DESC")
     LiveData<List<OrderItem>> getAllItems();
 
-    @Query("UPDATE order_table SET status = :status WHERE order_id = :orderId")
-    int UpdateOrder(String orderId , int status);
+    @Query("UPDATE order_table SET status = :status , date = :date WHERE order_id = :orderId")
+    int UpdateOrder(String orderId , int status,String date);
 
     @Query("DELETE FROM order_table")
     void deleteAll();

@@ -101,7 +101,8 @@ public class OrderItemRepository {
 
         @Override
         protected Void doInBackground(NotificationReceiveData... notificationReceiveData) {
-            dao.UpdateOrder(notificationReceiveData[0].getOrderId(),notificationReceiveData[0].getStatus());
+            dao.UpdateOrder(notificationReceiveData[0].getOrderId()
+                    ,notificationReceiveData[0].getStatus(),notificationReceiveData[0].getMessage());
             return null;
         }
     }

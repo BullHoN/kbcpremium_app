@@ -25,6 +25,7 @@ import com.avit.kbcpremium.db.OrderItemRepository;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.awt.font.TextAttribute;
 import java.util.Map;
 
 public class NotificationService extends FirebaseMessagingService {
@@ -68,7 +69,11 @@ public class NotificationService extends FirebaseMessagingService {
             repository.updateData(data1);
         }else {
             int status = Integer.parseInt(data.get("status"));
-            NotificationReceiveData data1 = new NotificationReceiveData(orderId,status);
+
+            String message = data.get("message");
+            Log.i("Notification",message);
+
+            NotificationReceiveData data1 = new NotificationReceiveData(orderId,status,message);
             repository1.updateData(data1);
         }
 

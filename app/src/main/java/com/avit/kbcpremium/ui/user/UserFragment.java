@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -56,7 +60,39 @@ public class UserFragment extends Fragment {
             }
         });
 
+        root.findViewById(R.id.call).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                call();
+            }
+        });
+
+        root.findViewById(R.id.chat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openWhatsup();
+            }
+        });
+
         return root;
+    }
+
+    private void call(){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + "9935179356"));
+        getContext().startActivity(intent);
+    }
+
+    private void openWhatsup(){
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("https://api.whatsapp.com/send?phone=+919935179356"));
+            startActivity(intent);
+
+        }catch (Exception e){
+            Toast.makeText(getContext(), "WhatsApp not Installed", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
     }
 
     private void showAlertBox(){

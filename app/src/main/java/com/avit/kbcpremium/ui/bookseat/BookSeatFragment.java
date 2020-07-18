@@ -197,7 +197,7 @@ public class BookSeatFragment  extends Fragment {
                             .show();
                     saveToDatabse();
                 }else {
-                    Toast.makeText(getContext(),"Sorry But Seat is Unavaible so change Time",Toast.LENGTH_LONG)
+                    Toast.makeText(getContext(),responseData.getMessage(),Toast.LENGTH_LONG)
                             .show();
                 }
                 

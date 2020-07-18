@@ -150,6 +150,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/reason"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -186,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
-                android:text="+91 9653090858" />
+                android:text="+91 9935179356" />
 
         </LinearLayout>
 
