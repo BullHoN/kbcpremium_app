@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ public class AddressActivity extends AppCompatActivity {
 
     private String phoneNo;
     private String TAG = "Register";
+    ProgressBar progressBar;
+    Button registerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,8 @@ public class AddressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_address);
 
         phoneNo = getIntent().getStringExtra("phoneNo");
-        Log.i(TAG,phoneNo);
+        progressBar = findViewById(R.id.progress);
+        registerButton = findViewById(R.id.register);
 
         final EditText nameView = findViewById(R.id.name);
         final EditText addressView = findViewById(R.id.rawaddress);
@@ -50,6 +56,8 @@ public class AddressActivity extends AppCompatActivity {
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
+                registerButton.setClickable(false);
                 signUp(name,address,nearByAddress,phoneNo);
 
             }

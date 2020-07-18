@@ -1,97 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/black"
-    android:padding="24dp"
-    android:layout_height="match_parent"
-    tools:context=".AddressActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:fontFamily="@font/roboto_bold"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        android:text="Enter Your Details"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:text="Note: You can change them anytime after registration"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Enter Your Details"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
 
-    <TextView
-        android:layout_marginTop="32dp"
-        style="@style/Heading"
-        android:text="Name"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note: You can change them anytime after registration"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_edit_text"
+            android:hint="Enter Your Name"
+            android:inputType="textPersonName"
+            android:padding="12.5dp" />
+
+        <TextView
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Raw Address" />
+
+        <EditText
+            android:id="@+id/rawaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_edit_text"
+            android:ellipsize="end"
+            android:hint="Enter Your Address"
+            android:inputType="textPostalAddress"
+            android:lines="2"
+            android:padding="12.5dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/address_info"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/Heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Nearby Address" />
+
+        <EditText
+            android:id="@+id/nearbyaddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_edit_text"
+            android:ellipsize="end"
+            android:hint="Enter Your Nearby address"
+            android:inputType="textPostalAddress"
+            android:lines="2"
+            android:padding="12.5dp" />
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/shape_signup_button"
+            android:text="Register" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progress"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:layout_marginTop="5dp"
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Your Name"
-        android:inputType="textPersonName"
-        android:background="@drawable/shape_edit_text"
-        android:padding="12.5dp" />
-
-    <TextView
-        android:layout_marginTop="24dp"
-        style="@style/Heading"
-        android:text="Raw Address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:layout_marginTop="5dp"
-        android:id="@+id/rawaddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Your Address"
-        android:lines="2"
-        android:ellipsize="end"
-        android:inputType="textPostalAddress"
-        android:background="@drawable/shape_edit_text"
-        android:padding="12.5dp" />
-
-    <TextView
-        android:fontFamily="@font/roboto_medium"
-        android:layout_marginTop="5dp"
-        android:text="@string/address_info"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:layout_marginTop="24dp"
-        style="@style/Heading"
-        android:text="Nearby Address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:layout_marginTop="5dp"
-        android:id="@+id/nearbyaddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Your Nearby address"
-        android:lines="2"
-        android:ellipsize="end"
-        android:inputType="textPostalAddress"
-        android:background="@drawable/shape_edit_text"
-        android:padding="12.5dp" />
-
-    <Button
-        android:id="@+id/register"
-        android:background="@drawable/shape_signup_button"
-        android:text="Register"
-        android:layout_marginTop="24dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</RelativeLayout>

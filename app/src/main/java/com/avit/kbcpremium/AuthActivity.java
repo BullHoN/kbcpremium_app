@@ -9,7 +9,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.avit.kbcpremium.auth.LoginPostData;
@@ -30,22 +32,30 @@ public class AuthActivity extends AppCompatActivity {
     private EditText phoneNoView;
     private String TAG = "Auth";
     private int EXIT_CODE = 13;
+    private ProgressBar progressBar;
+    private Button verifyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        progressBar = findViewById(R.id.progress);
+        verifyButton = findViewById(R.id.verify);
+
         phoneNoView = findViewById(R.id.phoneNo);
         findViewById(R.id.verify).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String phoneNo = phoneNoView.getText().toString();
                 if(phoneNo.length() != 10 || !isPhoneNo(phoneNo)){
                     Toast.makeText(getApplicationContext(),"Not A Valid Number",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
+                verifyButton.setClickable(false);
                 // some way to verify the number
                 sendLoginData(phoneNo);
             }

@@ -44,7 +44,9 @@ public class CartFragment extends Fragment {
     private List<CartItem> allCartItems;
     private int from = 0;
     private int mSubtotal,mTotal,deliveryCharge = 10;
-    private boolean isAvailable = false;
+    private boolean isAvailable = true;
+    private TextView deliveryAmountView;
+    private TextView totalView;
 
 
     @Nullable
@@ -55,6 +57,7 @@ public class CartFragment extends Fragment {
                 ViewModelProviders.of(this).get(CartViewModel.class);
         viewGroup = container;
 
+        deliveryAmountView = root.findViewById(R.id.delivery_amount);
         checkAvailability();
         // checkout button
         root.findViewById(R.id.checkout).setOnClickListener(new View.OnClickListener() {
@@ -89,7 +92,7 @@ public class CartFragment extends Fragment {
         cartItemsView = root.findViewById(R.id.cart_items);
         final TextView cartNoView = root.findViewById(R.id.no_items);
         final TextView subTotalView = root.findViewById(R.id.subtotal_amount);
-        final TextView totalView = root.findViewById(R.id.total_amount);
+        totalView = root.findViewById(R.id.total_amount);
         final LinearLayout priceViews = root.findViewById(R.id.charges);
         final TextView emptyView = root.findViewById(R.id.empty);
 
@@ -198,7 +201,12 @@ public class CartFragment extends Fragment {
             @Override
             public void onResponse(Call<AvailabilityResponse> call, Response<AvailabilityResponse> response) {
                 AvailabilityResponse availabilityResponse = response.body();
-                isAvailable = availabilityResponse.isAvailable();
+
+                deliveryCharge = availabilityResponse.getDeliveryPrice();
+                deliveryAmountView.setText("₹" + deliveryCharge);
+                int temp = calculateSubTotal();
+                totalView.setText("₹" + (temp + deliveryCharge));
+
             }
 
             @Override

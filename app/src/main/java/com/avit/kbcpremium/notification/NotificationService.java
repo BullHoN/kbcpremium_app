@@ -70,8 +70,13 @@ public class NotificationService extends FirebaseMessagingService {
         }else {
             int status = Integer.parseInt(data.get("status"));
 
-            String message = data.get("message");
-            Log.i("Notification",message);
+            String message;
+            if(status == -1){
+                message = data.get("message");
+                Log.i("Notification",message);
+            }else {
+                message = "Order is Delivered";
+            }
 
             NotificationReceiveData data1 = new NotificationReceiveData(orderId,status,message);
             repository1.updateData(data1);
