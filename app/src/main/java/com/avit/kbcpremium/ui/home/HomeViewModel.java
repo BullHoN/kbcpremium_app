@@ -65,11 +65,24 @@ public class HomeViewModel extends AndroidViewModel {
         lorelItems.add(new ProductItem(380,"For Frizzy Hair Hair Spa Smooth Revival Shampoo(250 ml)",0,"http:/" + "/" + "18.188.149.40:5000/images/Loreal Professional/For Frizzy Hair -Hair Spa Smooth Revival Shampoo (250 ml).png"));
         lorelItems.add(new ProductItem(380,"For Colored Hair  Hair Spa Color Pure Conditioner (200 ml)",0,"http:/" + "/" + "18.188.149.40:5000/images/Loreal Professional/For Colored Hair  Hair Spa Color Pure Conditioner (200 ml).png"));
 
+        ArrayList<ProductItem> matrixItems = new ArrayList<>();
+        matrixItems.add(new ProductItem(170,"Smoothing Conditioner (98 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Matrix/Smoothing Conditioner (98 g).png"));
+        matrixItems.add(new ProductItem(205,"Smoothing Shampoo (200 ml)",0,"http:/" + "/" + "18.188.149.40:5000/images/Matrix/Smoothing Shampoo (200 ml).png"));
+        matrixItems.add(new ProductItem(315,"Hydrating Conditioner (196 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Matrix/Hydrating Conditioner (196 g).png"));
+        matrixItems.add(new ProductItem(205,"Color Protecting Shampoo (200 ml)",0,"http:/" + "/" + "18.188.149.40:5000/images/Matrix/Color Protecting Shampoo (200 ml).png"));
+
+        ArrayList<ProductItem> cherlysItems = new ArrayList<>();
+        cherlysItems.add(new ProductItem(265,"ClariWash Face Wash For Oily Skin (50 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Cheryls/ClariWash Face Wash For Oily Skin (50 g).png"));
+        cherlysItems.add(new ProductItem(265,"Derma Cleanse For Acne Prone Skin (80 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Cheryls/Derma Cleanse For Acne Prone Skin (80 g).png"));
+        cherlysItems.add(new ProductItem(645,"Dermalite Fairness Lotion Instant Brightening (50 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Cheryls/Dermalite Fairness Lotion Instant Brightening (50 g).png"));
+        cherlysItems.add(new ProductItem(300,"HeelPeel Cracked Heel Eliminator For cracked Heels (40 g)",0,"http:/" + "/" + "18.188.149.40:5000/images/Cheryls/HeelPeel Cracked Heel Eliminator For cracked Heels (40 g).png"));
 
         brandItems = new ArrayList<>();
         brandItems.add(new BrandItem("Lotus Professional",productItems));
         brandItems.add(new BrandItem("Skeyndor",skendorItems));
         brandItems.add(new BrandItem("Loreal Professional",lorelItems));
+        brandItems.add(new BrandItem("Matrix",matrixItems));
+        brandItems.add(new BrandItem("Cherlys",cherlysItems));
 
     }
 

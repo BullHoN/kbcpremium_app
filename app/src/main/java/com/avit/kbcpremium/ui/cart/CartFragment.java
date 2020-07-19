@@ -205,7 +205,8 @@ public class CartFragment extends Fragment {
                 deliveryCharge = availabilityResponse.getDeliveryPrice();
                 deliveryAmountView.setText("₹" + deliveryCharge);
                 int temp = calculateSubTotal();
-                totalView.setText("₹" + (temp + deliveryCharge));
+                mTotal = temp + deliveryCharge;
+                totalView.setText("₹" + mTotal);
 
             }
 

@@ -79,6 +79,14 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
         ImageView logoView = root.findViewById(R.id.logo);
 
         switch (brandName){
+            case "Matrix":
+                offset = 3;
+                getBrandItems(brandName,start,offset);
+                break;
+            case "Cherlys":
+                offset = 4;
+                getBrandItems(brandName,start,offset);
+                break;
             case "Skeyndor":
                 offset = 3;
                 getBrandItems(brandName,start,offset);
@@ -123,7 +131,7 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
             View productView = getLayoutInflater().inflate(R.layout.sub_product_item,container,false);
             final ProductItem curr = productItems.get(i);
 
-//            Log.i(TAG,curr.getPrice() + curr.getName() + " " + curr.getImageUrl());
+            Log.i(TAG,curr.getPrice() + curr.getName() + " " + curr.getImageUrl());
             ImageView productImage = productView.findViewById(R.id.productImage);
             Glide.with(getContext()).load(curr.getImageUrl()).into(productImage);
 
@@ -266,6 +274,12 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
             start = offset;
             offset = start + offset;
             switch (brandName){
+                case "Cherlys":
+                    getBrandItems(brandName,start,offset);
+                    break;
+                case "Matrix":
+                    getBrandItems(brandName,start,offset);
+                    break;
                 case "Skeyndor":
                     getBrandItems(brandName,start,offset);
                     break;
