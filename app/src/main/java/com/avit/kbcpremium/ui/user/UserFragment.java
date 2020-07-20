@@ -25,6 +25,9 @@ import com.avit.kbcpremium.AuthActivity;
 import com.avit.kbcpremium.MainActivity;
 import com.avit.kbcpremium.R;
 import com.avit.kbcpremium.SharedPrefNames;
+import com.avit.kbcpremium.ui.additionals.AboutmeFragment;
+import com.avit.kbcpremium.ui.additionals.RefundFragment;
+import com.avit.kbcpremium.ui.additionals.privacyFragment;
 import com.avit.kbcpremium.ui.orders.OrdersFragment;
 
 public class UserFragment extends Fragment {
@@ -39,6 +42,47 @@ public class UserFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_user, container, false);
 
         sharedPreferences = sharedPreferences = getActivity().getSharedPreferences(SharedPrefNames.DB_NAME, Context.MODE_PRIVATE);
+
+        root.findViewById(R.id.terms).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment refundFragment = new RefundFragment();
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment,refundFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
+        root.findViewById(R.id.privacy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment privacy = new privacyFragment();
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment,privacy)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
+        root.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment aboutFragment = new AboutmeFragment();
+
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment,aboutFragment)
+                        .addToBackStack(null)
+                        .commitAllowingStateLoss();
+
+            }
+        });
 
         root.findViewById(R.id.my_orders).setOnClickListener(new View.OnClickListener() {
             @Override

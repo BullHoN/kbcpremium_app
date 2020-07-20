@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="24dp"
-                android:text="Privacy Policy" />
+                android:text="Policy And Condition" />
 
         </LinearLayout>
 
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="24dp"
-                android:text="Terms and condition" />
+                android:text="Cancellations and Refunds" />
 
         </LinearLayout>
 

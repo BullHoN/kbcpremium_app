@@ -82,10 +82,12 @@ public class ProductsFragment extends Fragment implements View.OnTouchListener, 
             case "Matrix":
                 offset = 3;
                 getBrandItems(brandName,start,offset);
+                logoView.setImageResource(R.drawable.metrics);
                 break;
             case "Cherlys":
                 offset = 4;
                 getBrandItems(brandName,start,offset);
+                logoView.setImageResource(R.drawable.chrel);
                 break;
             case "Skeyndor":
                 offset = 3;

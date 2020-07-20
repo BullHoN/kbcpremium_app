@@ -6,4 +6,25 @@
     <string name="title_notifications">Me</string>
     <string name="address_info">!! Please Specify The Address Very Carefully As We Don\'t Use Any
     Third Party Service To Get Your Location !!</string>
+    <string name="about_me">Kamini Beauty Care is a Luxury Makeup, hair Salon and Spa which promises to redefine your look styling and beauty experience, and become your favorite style destination for all your beauty care,
+        skincare and beauty needs Today, Kamini Beauty care successfully offer best makeup, flawless skin and hair care solutions that enhance the look and feel of your charm beautifully.\n\n
+        It is their concrete formulations that add to the efficiency of the products in order to meet customers customized beauty needs.
+        A synergistic combination of these products and services will provide you with a complete skin care solution. What makes Kamini beauty care the first choice is the specialized skin expertise that it offers to the customers.</string>
+
+    <string name="section1">When you purchase something from our store, as part of the buying and selling process, we collect the personal information you give us such as your name, address and phone Number. When you browse our store, we also automatically receive your computer’s internet protocol (IP) address in order to provide us with information that helps us learn about your operating system. Phone marketing (if applicable): With your permission, we may send you emails about our store, new products and other updates.</string>
+    <string name="section2">We may disclose your personal information if we are required by law to do so or if you violate our Terms of Service.</string>
+    <string name="section3">We use UPI For Payment For more information checkout terms-and-condition of UPI</string>
+
+    <string name="refund1">As a general rule you shall not be entitled to cancel your order once you have received confirmation of the same. If you cancel your order after it has been confirmed. \n\n
+    However, in the unlikely event of an item on your order being unavailable, we will contact you on the phone number provided to us at the time of placing the order and inform you of such unavailability. In such an event you will be entitled to cancel the entire order and shall be entitled to a refund in accordance with our refund policy.</string>
+
+    <string name="refund2">You shall be entitled to a refund only if you pre-pay for your order at the time of placing your order on the Platform and only in the event of any of the following circumstances:\n\nyour order packaging has been tampered or damaged at the time of delivery\n\n
+us cancelling your order due to (A) your delivery location following outside our designated delivery zones; (B) failure to contact you by phone or email at the time of confirming the order booking; or (C) failure to contact you by phone or email at the time of confirming the order booking; or \n\n
+
+you cancelling the order at the time of confirmation due to unavailability of the items you ordered for at the time of booking.\n\n
+
+Our decision on refunds shall be at our sole discretion and shall be final and binding.\n\n
+
+All refund amounts shall be credited to your account within 3-4 business days in accordance with the terms that may be stipulated by the bank which has issued the credit / debit card.</string>
+
 </resources>
